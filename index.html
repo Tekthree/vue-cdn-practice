@@ -7,20 +7,57 @@
   <title>Test Vue</title>
 
   <style>
-      .box{
-        background-color: gray;
-        height: 200px;
-        width: 200px;
+
+    #app{
+      padding: 5vw;
+      display: flex;
+      justify-content: center;
+    }
+   
+
+      input{
+        margin-top: 10px;
+        padding: 1vw;
       }
+
+      button{
+        margin-top: 10px;
+        padding: 13px;
+        background-color: rgb(89, 89, 185);
+        color: white;
+      }
+
+      
+
+      .login-wrapper{
+        background-color: rgb(194, 194, 194);
+        display: flex;
+        flex-direction: column;
+        max-width: 300px;
+        padding: 3vw;
+        border-radius: 15px;
+      }
+
+      form{
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+      }
+
   </style>
 </head>
 <body>
-  <div id="app">{{greeting}}
-    <input @keyup.enter="greet" v-model="greeting"/>
+  <div id="app">
+ 
 
-    <hr />
-    <button v-on:click="toggleBox"> show</button>
-    <div v-if="isVisible" class="box"></div>
+    <div class="login-wrapper">
+
+    
+      <login-form/>
+
+     
+ 
+    </div>
 
 
   </div>
@@ -44,6 +81,29 @@
         },
         greet(){
           console.log(this.greeting)
+        }
+      }
+    })
+
+    app.component('login-form', {
+      template: `
+        <form @submit.prevent="handleSubmit">
+          <h1>{{title}}</h1>
+          <input type="email" v-model="email"/>
+          <input type="password" v-model="password" />  
+          <button>submit</button>
+        </form>
+      `,
+      data: function(){
+        return{
+          title: 'Login Form',
+          email: '',
+          password: ''
+        }
+      },
+      methods: {
+        handleSubmit(){
+          console.log(this.email, this.password)
         }
       }
     })
